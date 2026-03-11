@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import '../../../core/widgets/glass_container.dart';
 
 class HomeSearchBar extends StatelessWidget {
-  const HomeSearchBar({super.key});
+  final Function(String)? onChanged;
+
+  const HomeSearchBar({
+    super.key,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +20,13 @@ class HomeSearchBar extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
+              onChanged: onChanged,
               style: const TextStyle(
                 color: Colors.white,
               ),
               cursorColor: Colors.white,
               decoration: const InputDecoration(
-                hintText: "Search channels, movies, or sports...",
+                hintText: "Search channels...",
                 hintStyle: TextStyle(
                   color: Colors.white60,
                 ),

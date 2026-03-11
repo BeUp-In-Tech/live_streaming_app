@@ -130,7 +130,13 @@ class ActivationScreen extends StatelessWidget {
                                     ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        // TODO: open help page or dialog
+                                        Get.snackbar(
+                                          "Support",
+                                          "Help service is not available right now.",
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.black87,
+                                          colorText: Colors.white,
+                                        );
                                       },
                                   ),
                                   const TextSpan(

@@ -26,20 +26,15 @@ class SettingsScreen extends StatelessWidget {
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-
-              final isLandscape =
-                  constraints.maxWidth > constraints.maxHeight;
+              final isLandscape = constraints.maxWidth > constraints.maxHeight;
 
               return Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 110),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     const HomeLogo(),
-
                     const SizedBox(height: 25),
-
                     const Text(
                       "DEVICE & ACCOUNT",
                       style: TextStyle(
@@ -48,17 +43,11 @@ class SettingsScreen extends StatelessWidget {
                         letterSpacing: 1,
                       ),
                     ),
-
                     const SizedBox(height: 12),
-
                     const DeviceInfoCard(),
-
                     const SizedBox(height: 14),
-
                     const RefreshPlaylistCard(),
-
                     const SizedBox(height: 25),
-
                     const Text(
                       "PLAYBACK & VISUALS",
                       style: TextStyle(
@@ -67,13 +56,9 @@ class SettingsScreen extends StatelessWidget {
                         letterSpacing: 1,
                       ),
                     ),
-
                     const SizedBox(height: 12),
-
                     const StreamQualityCard(),
-
                     const SizedBox(height: 25),
-
                     const Text(
                       "SUPPORT",
                       style: TextStyle(
@@ -82,15 +67,23 @@ class SettingsScreen extends StatelessWidget {
                         letterSpacing: 1,
                       ),
                     ),
-
                     const SizedBox(height: 12),
-
                     Expanded(
-                      child: SupportCards(
-                        isLandscape: isLandscape,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.snackbar(
+                            "Support",
+                            "This feature is not available right now. Please check back later.",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.black87,
+                            colorText: Colors.white,
+                          );
+                        },
+                        child: SupportCards(
+                          isLandscape: isLandscape,
+                        ),
                       ),
                     ),
-
                   ],
                 ),
               );

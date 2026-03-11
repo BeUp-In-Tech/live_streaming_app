@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
+import '../../services/playlist_service.dart';
+import '../../core/utils/m3u_parser.dart';
 
 class HomeController extends GetxController {
   var selectedNavIndex = 0.obs;
 
   void changeNavIndex(int index) {
-    print("BottomNav tapped → index: $index");
     selectedNavIndex.value = index;
-    print("Updated selectedNavIndex → ${selectedNavIndex.value}");
   }
 
   var loadingHeader = true.obs;
@@ -26,28 +26,15 @@ class HomeController extends GetxController {
     selectedCategory.value = index;
   }
 
-  final channels = [
-    {
-      "name": "ESPN HD",
-      "logo":
-          "https://images.unsplash.com/photo-1618835350763-ee971e156096?q=80&w=1074"
-    },
-    {
-      "name": "FOX Sports",
-      "logo":
-          "https://images.unsplash.com/photo-1607627000458-210e8d2bdb1d?q=80&w=1149"
-    },
-    {
-      "name": "NBC Sports",
-      "logo":
-          "https://images.unsplash.com/photo-1620629469394-63161e3a9f8d?q=80&w=1331"
-    },
-    {
-      "name": "Sky Sports",
-      "logo":
-          "https://images.unsplash.com/photo-1742805382148-48e9953ad797?q=80&w=1332"
-    },
-  ].obs;
+  final channels = <Map<String, String>>[].obs;
+
+  final filteredChannels = <Map<String, String>>[].obs;
+
+  var searchQuery = "".obs;
+
+  final PlaylistService _playlistService = PlaylistService();
+
+  final String playlistUrl = "https://springtv.me/get/rtaylor4197@gmail.com";
 
   @override
   void onInit() {
@@ -55,11 +42,36 @@ class HomeController extends GetxController {
     loadHome();
   }
 
-  void loadHome() async {
-    await Future.delayed(const Duration(seconds: 1));
-    loadingHeader.value = false;
+  Future<void> loadHome() async {
+    try {
+      final playlist = await _playlistService.fetchPlaylist(playlistUrl);
 
-    await Future.delayed(const Duration(seconds: 1));
-    loadingChannels.value = false;
+      final parsedChannels = parseM3U(playlist);
+
+      channels.assignAll(parsedChannels);
+
+      filteredChannels.assignAll(parsedChannels);
+
+      loadingChannels.value = false;
+      loadingHeader.value = false;
+    } catch (e) {
+      print("Playlist error: $e");
+    }
+  }
+
+  void searchChannels(String query) {
+    searchQuery.value = query;
+
+    if (query.isEmpty) {
+      filteredChannels.assignAll(channels);
+      return;
+    }
+
+    final results = channels.where((channel) {
+      final name = channel["name"]?.toLowerCase() ?? "";
+      return name.contains(query.toLowerCase());
+    }).toList();
+
+    filteredChannels.assignAll(results);
   }
 }

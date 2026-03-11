@@ -8,12 +8,14 @@ class ChannelListItem extends StatelessWidget {
   final String name;
   final String desc;
   final String logo;
+  final String streamUrl;
 
   const ChannelListItem({
     super.key,
     required this.name,
     required this.desc,
     required this.logo,
+    required this.streamUrl,
   });
 
   @override
@@ -33,7 +35,14 @@ class ChannelListItem extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.network(logo),
+              // child: Image.network(logo),
+              child: logo.isEmpty
+                  ? const Icon(Icons.tv, color: Colors.black)
+                  : Image.network(
+                      logo,
+                      errorBuilder: (_, __, ___) =>
+                          const Icon(Icons.tv, color: Colors.black),
+                    ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -63,6 +72,7 @@ class ChannelListItem extends StatelessWidget {
                 Get.to(
                   () => PlayerScreen(
                     channelName: name,
+                    streamUrl: streamUrl,
                   ),
                 );
               },

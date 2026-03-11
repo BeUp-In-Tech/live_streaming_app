@@ -35,28 +35,30 @@ class ChannelsScreen extends StatelessWidget {
                       highlightColor: Colors.white24,
                     ),
                     child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: isLandscape
-                          ? const NeverScrollableScrollPhysics()
-                          : null,
-                      itemCount: controller.channels.length,
-                      itemBuilder: (_, index) {
-                        final channel = controller.channels[index];
+                        shrinkWrap: true,
+                        physics: isLandscape
+                            ? const NeverScrollableScrollPhysics()
+                            : null,
+                        itemCount: controller.channels.length,
+                        itemBuilder: (_, index) {
+                          final channel = controller.channels[index];
 
-                        return ChannelListItem(
-                          name: channel["name"]!,
-                          desc: channel["desc"]!,
-                          logo: channel["logo"]!,
-                        );
-                      },
-                    ),
+                          return ChannelListItem(
+                            name: channel["name"] ?? "Unknown Channel",
+                            desc: channel["desc"] ?? "Live Channel",
+                            logo: channel["logo"] ?? "",
+                            streamUrl: channel["url"] ?? "",
+                          );
+                        }),
                   ));
 
               final content = Column(
                 children: [
                   const ChannelsHeader(),
                   const SizedBox(height: 20),
-                  const HomeSearchBar(),
+                  HomeSearchBar(
+                    onChanged: controller.searchChannels,
+                  ),
                   const SizedBox(height: 20),
                   CategoryChips(),
                   const SizedBox(height: 20),

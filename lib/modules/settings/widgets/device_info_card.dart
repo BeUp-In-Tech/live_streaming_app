@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../core/widgets/glass_container.dart';
+import '../settings_controller.dart';
 
 class DeviceInfoCard extends StatelessWidget {
   const DeviceInfoCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SettingsController>();
+
     return GlassContainer(
       borderRadius: 16,
       padding: const EdgeInsets.all(16),
@@ -13,26 +17,29 @@ class DeviceInfoCard extends StatelessWidget {
         children: [
           const Icon(Icons.devices, color: Colors.cyanAccent),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Device Information",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(height: 4),
-                Text(
-                  "Unique ID: UZZU-8829-XM4",
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 13,
+                const SizedBox(height: 4),
+                GestureDetector(
+                  onTap: controller.copyDeviceId,
+                  child: Text(
+                    "Unique ID: ${controller.deviceId}",
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 13,
+                    ),
                   ),
                 ),
-                Text(
+                const Text(
                   "Status: Active",
                   style: TextStyle(
                     color: Colors.greenAccent,
@@ -42,15 +49,30 @@ class DeviceInfoCard extends StatelessWidget {
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: null,
-            child: Text(
-              "Manage",
-              style: TextStyle(
-                color: Colors.white,
+          GestureDetector(
+            onTap: controller.copyDeviceId,
+            child: GlassContainer(
+              borderRadius: 10,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 6,
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.copy, size: 14, color: Colors.white70),
+                  SizedBox(width: 4),
+                  Text(
+                    "Copy",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

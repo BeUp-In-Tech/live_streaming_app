@@ -5,17 +5,31 @@ import 'channel_card.dart';
 
 class ChannelGrid extends StatelessWidget {
   final bool isLandscape;
+  final int? limit;
 
-  const ChannelGrid({super.key, required this.isLandscape});
+  const ChannelGrid({
+    super.key,
+    required this.isLandscape,
+    this.limit,
+  });
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
 
-    return GridView.builder(
+    return Obx(() {
+      final channelsWithLogo = controller.filteredChannels
+          .where((c) => (c["logo"] ?? "").toString().isNotEmpty)
+          .toList();
+
+      final channels = limit != null
+          ? channelsWithLogo.take(limit!).toList()
+          : channelsWithLogo;
+
+      return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: controller.channels.length,
+        itemCount: channels.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: isLandscape ? 4 : 2,
           mainAxisSpacing: 16,
@@ -23,12 +37,15 @@ class ChannelGrid extends StatelessWidget {
           childAspectRatio: 1.2,
         ),
         itemBuilder: (_, index) {
-          final channel = controller.channels[index];
+          final channel = channels[index];
 
           return ChannelCard(
-            title: channel["name"] as String,
-            logo: channel["logo"] as String,
+            title: channel["name"] ?? "",
+            logo: channel["logo"] ?? "",
+            url: channel["url"] ?? "",
           );
-        });
+        },
+      );
+    });
   }
 }

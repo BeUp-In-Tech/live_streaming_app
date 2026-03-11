@@ -35,29 +35,31 @@ class SplitScreenScreen extends StatelessWidget {
                     const HomeLogo(),
                     const SizedBox(height: 20),
                     Expanded(
-                      child: GridView.builder(
-                        itemCount: controller.streams.length + 1,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: isLandscape ? 4 : 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: isLandscape ? 1.1 : .8,
-                        ),
-                        itemBuilder: (_, index) {
-                          if (index == controller.streams.length) {
-                            return const AddStreamCard();
-                          }
+                      child: Obx(() => GridView.builder(
+                            itemCount: controller.streams.length + 1,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: isLandscape ? 4 : 2,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: isLandscape ? 1.1 : .8,
+                            ),
+                            itemBuilder: (_, index) {
+                              if (index == controller.streams.length) {
+                                return const AddStreamCard();
+                              }
 
-                          final stream = controller.streams[index];
+                              final stream = controller.streams[index];
 
-                          return StreamCard(
-                            title: stream["title"]!,
-                            desc: stream["desc"]!,
-                            image: stream["image"]!,
-                            isLive: index == 0,
-                          );
-                        },
-                      ),
+                              return StreamCard(
+                                index: index,
+                                title: stream["title"] ?? "",
+                                desc: stream["desc"] ?? "",
+                                image: stream["image"] ?? "",
+                                url: stream["url"] ?? "",
+                              );
+                            },
+                          )),
                     ),
                     const SizedBox(height: 15),
                     const Text(
