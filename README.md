@@ -1,17 +1,9 @@
-# live_stream
+## Live Stream IPTV Application
 
-A new Flutter project.
+This project is a modern IPTV live streaming application developed using Flutter, designed to provide a smooth, fast, and responsive streaming experience across multiple platforms including Android, iOS, Apple TV, Smart TVs, and tablet devices while supporting both portrait and landscape orientations. The application allows users to watch live IPTV channels through a custom-built video player with advanced playback controls such as play, pause, forward, rewind, fullscreen mode, volume control, and automatic stream quality detection. It includes a dynamic home screen with featured channel banners, popular channel grids, channel search functionality, and category-based browsing to help users quickly discover available streams. The app also provides a multi-stream viewing mode that allows users to watch multiple channels simultaneously while selecting audio focus for a specific stream. Additional features include a favorites system for saving preferred channels, a settings module for managing device information, playlist refresh functionality, and stream quality preferences. The user interface is built with modern glassmorphism-style components and skeleton loading animations to ensure a visually appealing and professional experience even while content is loading. The project follows a modular architecture with a clear separation of controllers, screens, and reusable widgets, using GetX for state management, routing, and reactive updates. Networking and backend integration are handled through API-ready services, making the application easily extendable for IPTV playlist providers, streaming APIs, and Electronic Program Guide (EPG) services. Overall, this project demonstrates scalable Flutter architecture, clean UI design, and high-performance video streaming implementation suitable for production-level IPTV applications.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**MD. ABDUL HAMIM LEON**  
+Jr. Flutter Developer  
+Beup Tech Agency
