@@ -10,7 +10,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Get.put(SplashController());
 
     return Scaffold(
@@ -21,9 +20,7 @@ class SplashScreen extends StatelessWidget {
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-
-              final isLandscape =
-                  constraints.maxWidth > constraints.maxHeight;
+              final isLandscape = constraints.maxWidth > constraints.maxHeight;
 
               final logoWidth = isLandscape ? 420.0 : 320.0;
               final loadingWidth = isLandscape ? 520.0 : 320.0;
@@ -39,19 +36,15 @@ class SplashScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           SizedBox(
                             width: logoWidth,
                             child: const SplashLogo(),
                           ),
-
                           const SizedBox(height: 40),
-
                           SizedBox(
                             width: loadingWidth,
                             child: const LoadingBox(),
                           ),
-
                         ],
                       ),
                     ),

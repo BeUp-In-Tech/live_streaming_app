@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uzza_max/modules/settings/settings_screen.dart';
+import 'package:uzza_max/modules/split_screen/split_screen_screen.dart';
 
-import '../../placeholder_screen.dart';
 import '../home/home_controller.dart';
 import '../home/home_screen.dart';
 import '../channels/channels_screen.dart';
@@ -12,34 +13,29 @@ class MainNavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // CREATE CONTROLLER HERE
     final controller = Get.put(HomeController());
 
     final pages = [
       const HomeScreen(),
       const ChannelsScreen(),
-      const PlaceholderScreen(title: "Split Screen"),
-      const PlaceholderScreen(title: "Settings"),
+      const SplitScreenScreen(),
+      const SettingsScreen(),
     ];
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(() => Stack(
-        children: [
-
-          IndexedStack(
-            index: controller.selectedNavIndex.value,
-            children: pages,
-          ),
-
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: BottomNavBar(),
-          )
-
-        ],
-      )),
+            children: [
+              IndexedStack(
+                index: controller.selectedNavIndex.value,
+                children: pages,
+              ),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: BottomNavBar(),
+              )
+            ],
+          )),
     );
   }
 }

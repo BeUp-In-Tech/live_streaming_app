@@ -11,7 +11,6 @@ class ActivationCodeBoxes extends StatefulWidget {
 }
 
 class _ActivationCodeBoxesState extends State<ActivationCodeBoxes> {
-
   late List<FocusNode> focusNodes;
 
   @override
@@ -21,8 +20,6 @@ class _ActivationCodeBoxesState extends State<ActivationCodeBoxes> {
   }
 
   void handleInput(String value, int index) {
-
-    // Handle paste full code
     if (value.length > 1) {
       final chars = value.split('');
 
@@ -36,12 +33,10 @@ class _ActivationCodeBoxesState extends State<ActivationCodeBoxes> {
       return;
     }
 
-    // Move to next box
     if (value.isNotEmpty && index < focusNodes.length - 1) {
       focusNodes[index + 1].requestFocus();
     }
 
-    // Backspace to previous
     if (value.isEmpty && index > 0) {
       focusNodes[index - 1].requestFocus();
     }
@@ -49,11 +44,10 @@ class _ActivationCodeBoxesState extends State<ActivationCodeBoxes> {
 
   @override
   Widget build(BuildContext context) {
-
     final screenWidth = MediaQuery.of(context).size.width;
 
-    final boxSize = ((screenWidth - 150) / widget.controllers.length)
-        .clamp(32.0, 46.0);
+    final boxSize =
+        ((screenWidth - 150) / widget.controllers.length).clamp(32.0, 46.0);
 
     return FittedBox(
       fit: BoxFit.scaleDown,
@@ -61,7 +55,7 @@ class _ActivationCodeBoxesState extends State<ActivationCodeBoxes> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           widget.controllers.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 3),
             child: SizedBox(
               width: boxSize,
@@ -78,25 +72,22 @@ class _ActivationCodeBoxesState extends State<ActivationCodeBoxes> {
                 decoration: InputDecoration(
                   counterText: "",
                   filled: true,
-                  fillColor: Colors.white.withOpacity(.06),
+                  fillColor: Colors.white.withValues(alpha: .06),
                   contentPadding: EdgeInsets.zero,
-
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: Colors.white.withOpacity(.25),
+                      color: Colors.white.withValues(alpha: 25),
                       width: 1,
                     ),
                   ),
-
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: Colors.white.withOpacity(.25),
+                      color: Colors.white.withValues(alpha: 25),
                       width: 1,
                     ),
                   ),
-
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(

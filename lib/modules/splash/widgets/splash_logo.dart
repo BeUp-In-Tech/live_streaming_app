@@ -7,21 +7,17 @@ class SplashLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GlassContainer(
       borderRadius: 32,
       padding: const EdgeInsets.all(30),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-
           Image.asset(
             "assets/images/logo.png",
             height: 80,
           ),
-
           const SizedBox(height: 20),
-
           Text.rich(
             TextSpan(
               children: [
@@ -45,9 +41,7 @@ class SplashLogo extends StatelessWidget {
               fontSize: 26,
             ),
           ),
-
           const SizedBox(height: 6),
-
           const Text(
             "PREMIUM STREAMING",
             style: TextStyle(
@@ -56,7 +50,6 @@ class SplashLogo extends StatelessWidget {
               color: Colors.white70,
             ),
           )
-
         ],
       ),
     );

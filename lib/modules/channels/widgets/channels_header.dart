@@ -6,18 +6,14 @@ class ChannelsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
         Image.asset(
           "assets/images/logo.png",
           height: 32,
         ),
-
         const SizedBox(width: 12),
-
         Text.rich(
           TextSpan(
             children: [
@@ -41,7 +37,6 @@ class ChannelsHeader extends StatelessWidget {
             fontSize: 28,
           ),
         ),
-
       ],
     );
   }

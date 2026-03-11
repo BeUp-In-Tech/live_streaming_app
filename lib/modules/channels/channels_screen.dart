@@ -15,7 +15,6 @@ class ChannelsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.put(ChannelsController());
 
     return Scaffold(
@@ -27,59 +26,46 @@ class ChannelsScreen extends StatelessWidget {
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-
-              final isLandscape =
-                  constraints.maxWidth > constraints.maxHeight;
+              final isLandscape = constraints.maxWidth > constraints.maxHeight;
 
               final channelList = Obx(() => Skeletonizer(
-                enabled: controller.loadingChannels.value,
-                effect: const ShimmerEffect(
-                  baseColor: Colors.white12,
-                  highlightColor: Colors.white24,
-                ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: isLandscape
-                      ? const NeverScrollableScrollPhysics()
-                      : null,
-                  itemCount: controller.channels.length,
-                  itemBuilder: (_, index) {
+                    enabled: controller.loadingChannels.value,
+                    effect: const ShimmerEffect(
+                      baseColor: Colors.white12,
+                      highlightColor: Colors.white24,
+                    ),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: isLandscape
+                          ? const NeverScrollableScrollPhysics()
+                          : null,
+                      itemCount: controller.channels.length,
+                      itemBuilder: (_, index) {
+                        final channel = controller.channels[index];
 
-                    final channel = controller.channels[index];
-
-                    return ChannelListItem(
-                      name: channel["name"]!,
-                      desc: channel["desc"]!,
-                      logo: channel["logo"]!,
-                    );
-                  },
-                ),
-              ));
+                        return ChannelListItem(
+                          name: channel["name"]!,
+                          desc: channel["desc"]!,
+                          logo: channel["logo"]!,
+                        );
+                      },
+                    ),
+                  ));
 
               final content = Column(
                 children: [
-
                   const ChannelsHeader(),
-
                   const SizedBox(height: 20),
-
                   const HomeSearchBar(),
-
                   const SizedBox(height: 20),
-
                   CategoryChips(),
-
                   const SizedBox(height: 20),
-
                   const LiveSectionTitle(),
-
                   const SizedBox(height: 15),
-
                   if (isLandscape)
                     channelList
                   else
                     Expanded(child: channelList),
-
                 ],
               );
 

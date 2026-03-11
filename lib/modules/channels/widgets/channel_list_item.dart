@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../player/player_screen.dart';
 import '../../../core/widgets/glass_container.dart';
 
 class ChannelListItem extends StatelessWidget {
-
   final String name;
   final String desc;
   final String logo;
@@ -16,7 +18,6 @@ class ChannelListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: GlassContainer(
@@ -24,7 +25,6 @@ class ChannelListItem extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-
             Container(
               width: 55,
               height: 55,
@@ -35,15 +35,11 @@ class ChannelListItem extends StatelessWidget {
               ),
               child: Image.network(logo),
             ),
-
             const SizedBox(width: 14),
-
             Expanded(
               child: Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Text(
                     name,
                     style: const TextStyle(
@@ -51,9 +47,7 @@ class ChannelListItem extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-
                   const SizedBox(height: 4),
-
                   Text(
                     desc,
                     style: const TextStyle(
@@ -64,15 +58,22 @@ class ChannelListItem extends StatelessWidget {
                 ],
               ),
             ),
-
-            const CircleAvatar(
-              backgroundColor: Colors.teal,
-              child: Icon(
-                Icons.play_arrow,
-                color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                Get.to(
+                  () => PlayerScreen(
+                    channelName: name,
+                  ),
+                );
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.teal,
+                child: Icon(
+                  Icons.play_arrow,
+                  color: Colors.white,
+                ),
               ),
             )
-
           ],
         ),
       ),

@@ -17,7 +17,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.find<HomeController>();
 
     return Scaffold(
@@ -29,60 +28,42 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-
-              bool isLandscape =
-                  constraints.maxWidth > constraints.maxHeight;
+              bool isLandscape = constraints.maxWidth > constraints.maxHeight;
 
               return Stack(
                 children: [
-
                   SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 120),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                        /// Header Skeleton
                         Obx(() => Skeletonizer(
-                          enabled: controller.loadingHeader.value,
-                          effect: const ShimmerEffect(
-                            baseColor: Colors.white12,
-                            highlightColor: Colors.white24,
-                          ),
-                          child: const HomeLogo(),
-                        )),
-
+                              enabled: controller.loadingHeader.value,
+                              effect: const ShimmerEffect(
+                                baseColor: Colors.white12,
+                                highlightColor: Colors.white24,
+                              ),
+                              child: const HomeLogo(),
+                            )),
                         const SizedBox(height: 20),
-
-                        /// Search Skeleton
                         Obx(() => Skeletonizer(
-                          enabled: controller.loadingHeader.value,
-                          child: const HomeSearchBar(),
-                        )),
-
+                              enabled: controller.loadingHeader.value,
+                              child: const HomeSearchBar(),
+                            )),
                         const SizedBox(height: 20),
-
-                        /// Category Tabs Skeleton
                         Obx(() => Skeletonizer(
-                          enabled: controller.loadingHeader.value,
-                          child: CategoryTabs(),
-                        )),
-
+                              enabled: controller.loadingHeader.value,
+                              child: CategoryTabs(),
+                            )),
                         const SizedBox(height: 20),
-
-                        /// Banner Skeleton
                         Obx(() => Skeletonizer(
-                          enabled: controller.loadingHeader.value,
-                          child: const FeaturedBanner(),
-                        )),
-
+                              enabled: controller.loadingHeader.value,
+                              child: const FeaturedBanner(),
+                            )),
                         const SizedBox(height: 30),
-
                         Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
                             const Text(
                               "Sports Channels",
                               style: TextStyle(
@@ -90,7 +71,6 @@ class HomeScreen extends StatelessWidget {
                                 fontSize: 20,
                               ),
                             ),
-
                             InkWell(
                               onTap: () {
                                 Get.find<HomeController>().changeNavIndex(1);
@@ -102,33 +82,26 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
-
                         const SizedBox(height: 20),
-
-                        /// Channel Grid Skeleton
                         Obx(() => Skeletonizer(
-                          enabled: controller.loadingChannels.value,
-                          effect: const ShimmerEffect(
-                            baseColor: Colors.white12,
-                            highlightColor: Colors.white24,
-                          ),
-                          child: ChannelGrid(
-                            isLandscape: isLandscape,
-                          ),
-                        )),
-
+                              enabled: controller.loadingChannels.value,
+                              effect: const ShimmerEffect(
+                                baseColor: Colors.white12,
+                                highlightColor: Colors.white24,
+                              ),
+                              child: ChannelGrid(
+                                isLandscape: isLandscape,
+                              ),
+                            )),
                       ],
                     ),
                   ),
-
-                  const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: BottomNavBar(),
-                  ),
-
+                  // const Align(
+                  //   alignment: Alignment.bottomCenter,
+                  //   child: BottomNavBar(),
+                  // ),
                 ],
               );
             },

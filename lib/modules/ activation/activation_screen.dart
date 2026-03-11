@@ -25,7 +25,6 @@ class ActivationScreen extends StatelessWidget {
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-
               return SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
@@ -38,19 +37,15 @@ class ActivationScreen extends StatelessWidget {
                         constraints: const BoxConstraints(maxWidth: 600),
                         child: Column(
                           children: [
-
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
                                 Image.asset(
                                   "assets/images/logo.png",
                                   height: 50,
                                 ),
-
                                 const SizedBox(width: 10),
-
                                 Text.rich(
                                   TextSpan(
                                     children: [
@@ -72,11 +67,9 @@ class ActivationScreen extends StatelessWidget {
                                   ),
                                   style: const TextStyle(fontSize: 24),
                                 ),
-
                               ],
                             ),
                             const SizedBox(height: 20),
-
                             const Text(
                               "Activate Device",
                               style: TextStyle(
@@ -85,9 +78,7 @@ class ActivationScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-
                             const SizedBox(height: 10),
-
                             const Text(
                               "Enter the 7-digit activation code shown on your TV screen to link your account.",
                               textAlign: TextAlign.center,
@@ -95,47 +86,35 @@ class ActivationScreen extends StatelessWidget {
                                 color: Colors.white70,
                               ),
                             ),
-
                             const SizedBox(height: 30),
-
                             GlassContainer(
                               child: Column(
                                 children: [
-
                                   ActivationCodeBoxes(
                                     controllers: controller.controllers,
                                   ),
-
                                   const SizedBox(height: 25),
-
                                   ActivationButton(
                                     onTap: controller.connectDevice,
                                   )
-
                                 ],
                               ),
                             ),
-
                             const SizedBox(height: 30),
-
                             const InstructionCard(
                               icon: Icons.tv,
                               title: "1. Open App on TV",
                               description:
-                              "Navigate to the 'Settings' or 'Login' section on your TV device.",
+                                  "Navigate to the 'Settings' or 'Login' section on your TV device.",
                             ),
-
                             const SizedBox(height: 20),
-
                             const InstructionCard(
                               icon: Icons.code,
                               title: "2. Get Your Code",
                               description:
-                              "A unique activation code will appear automatically on your screen.",
+                                  "A unique activation code will appear automatically on your screen.",
                             ),
-
                             const SizedBox(height: 40),
-
                             RichText(
                               text: TextSpan(
                                 style: const TextStyle(
@@ -160,9 +139,7 @@ class ActivationScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             const SizedBox(height: 40),
-
                           ],
                         ),
                       ),

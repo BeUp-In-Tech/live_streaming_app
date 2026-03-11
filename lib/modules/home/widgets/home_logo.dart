@@ -6,17 +6,13 @@ class HomeLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       children: [
-
         Image.asset(
           "assets/images/logo.png",
           height: 32,
         ),
-
         const SizedBox(width: 10),
-
         Text.rich(
           TextSpan(
             children: [

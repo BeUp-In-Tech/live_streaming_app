@@ -6,17 +6,13 @@ class HomeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GlassContainer(
       borderRadius: 14,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Row(
         children: [
-
           const Icon(Icons.search, color: Colors.white70),
-
           const SizedBox(width: 10),
-
           Expanded(
             child: TextField(
               style: const TextStyle(
@@ -28,7 +24,6 @@ class HomeSearchBar extends StatelessWidget {
                 hintStyle: TextStyle(
                   color: Colors.white60,
                 ),
-
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -36,7 +31,6 @@ class HomeSearchBar extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );

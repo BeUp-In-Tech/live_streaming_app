@@ -8,7 +8,6 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.find<HomeController>();
 
     final icons = [
@@ -24,42 +23,38 @@ class BottomNavBar extends StatelessWidget {
         borderRadius: 40,
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Obx(() => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(
-            icons.length,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(
+                icons.length,
                 (index) {
+                  final selected = controller.selectedNavIndex.value == index;
 
-              final selected =
-                  controller.selectedNavIndex.value == index;
-
-              return GestureDetector(
-                onTap: () {
-                  print("Tapped icon index: $index");
-                  controller.changeNavIndex(index);
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  padding: const EdgeInsets.all(10),
-                  decoration: selected
-                      ? BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white.withOpacity(.08),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(.25),
+                  return GestureDetector(
+                    onTap: () {
+                      print("Tapped icon index: $index");
+                      controller.changeNavIndex(index);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      padding: const EdgeInsets.all(10),
+                      decoration: selected
+                          ? BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withValues(alpha: .08),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: .25),
+                              ),
+                            )
+                          : null,
+                      child: Icon(
+                        icons[index],
+                        color: selected ? Colors.white : Colors.white70,
+                      ),
                     ),
-                  )
-                      : null,
-                  child: Icon(
-                    icons[index],
-                    color: selected
-                        ? Colors.white
-                        : Colors.white70,
-                  ),
-                ),
-              );
-            },
-          ),
-        )),
+                  );
+                },
+              ),
+            )),
       ),
     );
   }

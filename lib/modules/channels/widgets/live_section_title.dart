@@ -5,12 +5,9 @@ class LiveSectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
-      mainAxisAlignment:
-      MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-
         const Text(
           "LIVE NOW",
           style: TextStyle(
@@ -18,10 +15,8 @@ class LiveSectionTitle extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 10, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: Colors.red),
