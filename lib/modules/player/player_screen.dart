@@ -11,15 +11,17 @@ import 'widgets/player_controls.dart';
 
 class PlayerScreen extends StatelessWidget {
   final String channelName;
+  final String streamUrl;
 
   const PlayerScreen({
     super.key,
     required this.channelName,
+    required this.streamUrl,
   });
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PlayerController());
+    Get.put(PlayerController(streamUrl));
 
     return Scaffold(
       backgroundColor: Colors.black,

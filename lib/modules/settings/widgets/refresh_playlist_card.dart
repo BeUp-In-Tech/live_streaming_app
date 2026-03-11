@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../core/widgets/glass_container.dart';
+import '../settings_controller.dart';
 
 class RefreshPlaylistCard extends StatelessWidget {
   const RefreshPlaylistCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SettingsController>();
+
     return GlassContainer(
       borderRadius: 16,
       padding: const EdgeInsets.all(16),
@@ -35,15 +39,45 @@ class RefreshPlaylistCard extends StatelessWidget {
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: null,
-            child: Text(
-              "Sync Now",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          )
+          Obx(() => GestureDetector(
+                onTap: controller.refreshing.value
+                    ? null
+                    : controller.refreshPlaylist,
+                child: GlassContainer(
+                  borderRadius: 10,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  child: controller.refreshing.value
+                      ? const SizedBox(
+                          width: 14,
+                          height: 14,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.sync,
+                              size: 14,
+                              color: Colors.white70,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              "Sync",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+              )),
         ],
       ),
     );

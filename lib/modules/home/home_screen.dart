@@ -10,7 +10,6 @@ import 'widgets/home_search_bar.dart';
 import 'widgets/category_tabs.dart';
 import 'widgets/featured_banner.dart';
 import 'widgets/channel_grid.dart';
-import 'widgets/bottom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              bool isLandscape = constraints.maxWidth > constraints.maxHeight;
+              final isLandscape = constraints.maxWidth > constraints.maxHeight;
 
               return Stack(
                 children: [
@@ -65,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              "Sports Channels",
+                              "Popular Channels",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -73,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.find<HomeController>().changeNavIndex(1);
+                                controller.changeNavIndex(1);
                               },
                               child: const Text(
                                 "View All",
@@ -85,23 +84,28 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Obx(() => Skeletonizer(
-                              enabled: controller.loadingChannels.value,
-                              effect: const ShimmerEffect(
-                                baseColor: Colors.white12,
-                                highlightColor: Colors.white24,
-                              ),
+                        Obx(() {
+                          final isLoading = controller.loadingChannels.value;
+
+                          return Skeletonizer(
+                            enabled: isLoading,
+                            effect: const ShimmerEffect(
+                              baseColor: Colors.white12,
+                              highlightColor: Colors.white24,
+                            ),
+                            child: SizedBox(
+                              height:
+                                  isLoading ? (isLandscape ? 350 : 500) : null,
                               child: ChannelGrid(
                                 isLandscape: isLandscape,
+                                limit: 10,
                               ),
-                            )),
+                            ),
+                          );
+                        })
                       ],
                     ),
                   ),
-                  // const Align(
-                  //   alignment: Alignment.bottomCenter,
-                  //   child: BottomNavBar(),
-                  // ),
                 ],
               );
             },
