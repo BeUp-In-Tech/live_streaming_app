@@ -54,51 +54,58 @@ class VideoPlayerArea extends StatelessWidget {
           );
         }
 
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            AspectRatio(
-              aspectRatio: controller.videoController.value.aspectRatio,
-              child: VideoPlayer(controller.videoController),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.fast_rewind,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                  onPressed: controller.rewind,
-                ),
-                const SizedBox(width: 20),
-                Obx(() => GestureDetector(
-                      onTap: controller.togglePlay,
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          controller.isPlaying.value
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          size: 40,
-                          color: Colors.black,
+        return GestureDetector(
+          onTap: controller.showPlayerControls,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              AspectRatio(
+                aspectRatio: controller.videoController.value.aspectRatio,
+                child: VideoPlayer(controller.videoController),
+              ),
+              Obx(() => AnimatedOpacity(
+                    duration: const Duration(milliseconds: 300),
+                    opacity: controller.showControls.value ? 1 : 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.fast_rewind,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          onPressed: controller.rewind,
                         ),
-                      ),
-                    )),
-                const SizedBox(width: 20),
-                IconButton(
-                  icon: const Icon(
-                    Icons.fast_forward,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                  onPressed: controller.forward,
-                ),
-              ],
-            )
-          ],
+                        const SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: controller.togglePlay,
+                          child: CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              controller.isPlaying.value
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              size: 40,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.fast_forward,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          onPressed: controller.forward,
+                        ),
+                      ],
+                    ),
+                  )),
+            ],
+          ),
         );
       },
     );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
@@ -18,12 +20,28 @@ class PlayerController extends GetxController {
   var isLoading = true.obs;
   var hasError = false.obs;
 
+  var showControls = true.obs;
+  Timer? _controlsTimer;
+
   @override
   void onInit() {
     super.onInit();
     print("🎬 PlayerController initialized");
     print("📡 Stream URL: $streamUrl");
     initializePlayer();
+  }
+
+  void startControlsTimer() {
+    _controlsTimer?.cancel();
+
+    _controlsTimer = Timer(const Duration(seconds: 10), () {
+      showControls.value = false;
+    });
+  }
+
+  void showPlayerControls() {
+    showControls.value = true;
+    startControlsTimer();
   }
 
   Future<void> initializePlayer() async {
@@ -64,7 +82,8 @@ class PlayerController extends GetxController {
         }
       });
 
-      videoController.play();
+      //videoController.play();
+      startControlsTimer();
 
       isPlaying.value = true;
       isLoading.value = false;
@@ -91,6 +110,8 @@ class PlayerController extends GetxController {
       return;
     }
 
+    showPlayerControls();
+
     if (videoController.value.isPlaying) {
       print("⏸ Pausing video");
       videoController.pause();
@@ -110,6 +131,8 @@ class PlayerController extends GetxController {
       return;
     }
 
+    showPlayerControls();
+
     final position = videoController.value.position;
 
     print("⏪ Rewind from $position");
@@ -124,6 +147,8 @@ class PlayerController extends GetxController {
       print("⚠️ Forward ignored: player not initialized");
       return;
     }
+
+    showPlayerControls();
 
     final position = videoController.value.position;
 
@@ -211,6 +236,8 @@ class PlayerController extends GetxController {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
+    _controlsTimer?.cancel();
 
     super.onClose();
   }
