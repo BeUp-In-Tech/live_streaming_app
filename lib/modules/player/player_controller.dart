@@ -44,6 +44,17 @@ class PlayerController extends GetxController {
     startControlsTimer();
   }
 
+  /// NEW: toggle controls when tapping screen
+  void toggleControls() {
+    if (showControls.value) {
+      showControls.value = false;
+      _controlsTimer?.cancel();
+    } else {
+      showControls.value = true;
+      startControlsTimer();
+    }
+  }
+
   Future<void> initializePlayer() async {
     try {
       print("⚙️ Initializing video player...");
@@ -82,10 +93,11 @@ class PlayerController extends GetxController {
         }
       });
 
-      //videoController.play();
-      startControlsTimer();
+      await videoController.play();
 
       isPlaying.value = true;
+
+      showPlayerControls();
       isLoading.value = false;
 
       print("✅ Video initialized successfully");

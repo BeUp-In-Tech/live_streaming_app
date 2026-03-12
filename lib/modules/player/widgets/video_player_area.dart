@@ -79,7 +79,7 @@ class VideoPlayerArea extends StatelessWidget {
                         ),
                         const SizedBox(width: 20),
                         GestureDetector(
-                          onTap: controller.togglePlay,
+                          onTap: controller.toggleControls,
                           child: CircleAvatar(
                             radius: 40,
                             backgroundColor: Colors.white,
