@@ -13,21 +13,16 @@ class HomeController extends GetxController {
   var loadingChannels = true.obs;
 
   final categories = [
+    "All",
     "Sports",
     "News",
     "Movies",
     "Kids",
-    "Entertainment",
   ].obs;
 
   var selectedCategory = 0.obs;
 
-  void changeCategory(int index) {
-    selectedCategory.value = index;
-  }
-
   final channels = <Map<String, String>>[].obs;
-
   final filteredChannels = <Map<String, String>>[].obs;
 
   var searchQuery = "".obs;
@@ -50,7 +45,7 @@ class HomeController extends GetxController {
 
       channels.assignAll(parsedChannels);
 
-      filteredChannels.assignAll(parsedChannels);
+      applyFilters();
 
       loadingChannels.value = false;
       loadingHeader.value = false;
@@ -59,19 +54,35 @@ class HomeController extends GetxController {
     }
   }
 
-  void searchChannels(String query) {
-    searchQuery.value = query;
+  void applyFilters() {
+    List<Map<String, String>> result = List.from(channels);
 
-    if (query.isEmpty) {
-      filteredChannels.assignAll(channels);
-      return;
+    final selectedCat = categories[selectedCategory.value];
+
+    if (selectedCat != "All") {
+      result = result.where((channel) {
+        final group = channel["group"]?.toLowerCase() ?? "";
+        return group.contains(selectedCat.toLowerCase());
+      }).toList();
     }
 
-    final results = channels.where((channel) {
-      final name = channel["name"]?.toLowerCase() ?? "";
-      return name.contains(query.toLowerCase());
-    }).toList();
+    if (searchQuery.value.isNotEmpty) {
+      result = result.where((channel) {
+        final name = channel["name"]?.toLowerCase() ?? "";
+        return name.contains(searchQuery.value.toLowerCase());
+      }).toList();
+    }
 
-    filteredChannels.assignAll(results);
+    filteredChannels.assignAll(result);
+  }
+
+  void searchChannels(String query) {
+    searchQuery.value = query;
+    applyFilters();
+  }
+
+  void changeCategory(int index) {
+    selectedCategory.value = index;
+    applyFilters();
   }
 }

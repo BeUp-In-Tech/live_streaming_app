@@ -16,12 +16,15 @@ class AudioFocusSection extends StatelessWidget {
         children: List.generate(count, (index) {
           final selected = controller.selectedAudio.value == index;
 
-          return Expanded(
+          return Flexible(
+            fit: FlexFit.tight,
             child: GestureDetector(
               onTap: () => controller.selectAudio(index),
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                margin: const EdgeInsets.only(right: 8),
+                margin: EdgeInsets.only(
+                  right: index == count - 1 ? 0 : 8,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: selected ? Colors.blueAccent : Colors.white12,
@@ -35,13 +38,16 @@ class AudioFocusSection extends StatelessWidget {
                       size: 16,
                     ),
                     const SizedBox(width: 6),
-                    Text(
-                      "Stream ${index + 1}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+                    Flexible(
+                      child: Text(
+                        "Stream ${index + 1}",
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

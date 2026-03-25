@@ -16,27 +16,27 @@ class AddStreamCard extends StatelessWidget {
             backgroundColor: Colors.black87,
             child: SizedBox(
               height: 400,
-              child: ListView.builder(
-                itemCount: controller.availableChannels.length,
-                itemBuilder: (_, index) {
-                  final channel = controller.availableChannels[index];
+              child: Obx(() => ListView.builder(
+                    itemCount: controller.availableChannels.length,
+                    itemBuilder: (_, index) {
+                      final channel = controller.availableChannels[index];
 
-                  return ListTile(
-                    title: Text(
-                      channel["title"] ?? "",
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(
-                      channel["desc"] ?? "",
-                      style: const TextStyle(color: Colors.white70),
-                    ),
-                    onTap: () {
-                      controller.addStream(channel);
-                      Get.back();
+                      return ListTile(
+                        title: Text(
+                          channel["name"] ?? "",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          channel["group"] ?? "",
+                          style: const TextStyle(color: Colors.white70),
+                        ),
+                        onTap: () {
+                          controller.addStream(channel);
+                          Get.back();
+                        },
+                      );
                     },
-                  );
-                },
-              ),
+                  )),
             ),
           ),
         );

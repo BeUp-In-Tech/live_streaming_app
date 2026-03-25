@@ -18,60 +18,88 @@ class DeviceInfoCard extends StatelessWidget {
           const Icon(Icons.devices, color: Colors.cyanAccent),
           const SizedBox(width: 12),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Device Information",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                GestureDetector(
-                  onTap: controller.copyDeviceId,
-                  child: Text(
-                    "Unique ID: ${controller.deviceId}",
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 13,
+            child: Obx(() => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Device Information",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                ),
-                const Text(
-                  "Status: Active",
-                  style: TextStyle(
-                    color: Colors.greenAccent,
-                    fontSize: 13,
-                  ),
-                ),
-              ],
-            ),
+                    const SizedBox(height: 4),
+                    GestureDetector(
+                      onTap: controller.copyDeviceId,
+                      child: Text(
+                        controller.deviceId.value.isEmpty
+                            ? "Device ID: Loading..."
+                            : "Device ID: ${controller.deviceId.value}",
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      controller.deviceStatus.value.isEmpty
+                          ? "Status: Loading..."
+                          : "Status: ${controller.deviceStatus.value}",
+                      style: TextStyle(
+                        color: controller.deviceStatus.value == "active"
+                            ? Colors.greenAccent
+                            : Colors.orangeAccent,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                )),
           ),
-          GestureDetector(
-            onTap: controller.copyDeviceId,
-            child: GlassContainer(
-              borderRadius: 10,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 6,
+          Column(
+            children: [
+              GestureDetector(
+                onTap: controller.copyDeviceId,
+                child: GlassContainer(
+                  borderRadius: 10,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.copy, size: 14, color: Colors.white70),
+                      SizedBox(width: 4),
+                      Text(
+                        "Copy",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.copy, size: 14, color: Colors.white70),
-                  SizedBox(width: 4),
-                  Text(
-                    "Copy",
+              const SizedBox(height: 6),
+              GestureDetector(
+                onTap: controller.disconnectDevice,
+                child: GlassContainer(
+                  borderRadius: 10,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  child: const Text(
+                    "Disconnect",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.redAccent,
                       fontSize: 12,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
