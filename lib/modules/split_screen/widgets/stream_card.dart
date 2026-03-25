@@ -1,6 +1,6 @@
+import 'package:better_player_plus/better_player_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../core/widgets/glass_container.dart';
 import '../../player/player_screen.dart';
@@ -27,19 +27,48 @@ class StreamCard extends StatefulWidget {
 }
 
 class _StreamCardState extends State<StreamCard> {
-  late VideoPlayerController controller;
-  bool ready = false;
+  late BetterPlayerController controller;
 
   @override
   void initState() {
     super.initState();
 
-    controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
-      ..initialize().then((_) {
-        controller.play();
-        controller.setVolume(0);
-        setState(() => ready = true);
-      });
+    controller = BetterPlayerController(
+      BetterPlayerConfiguration(
+        autoPlay: true,
+        looping: true,
+        fit: BoxFit.cover,
+        controlsConfiguration: const BetterPlayerControlsConfiguration(
+          showControls: false,
+        ),
+        errorBuilder: (context, errorMessage) {
+          return Container(
+            color: Colors.black,
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, color: Colors.white70),
+                  SizedBox(height: 8),
+                  Text(
+                    "Stream unavailable",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+      betterPlayerDataSource: BetterPlayerDataSource(
+        BetterPlayerDataSourceType.network,
+        widget.url,
+        liveStream: true,
+        headers: {
+          "User-Agent": "Mozilla/5.0",
+        },
+      ),
+    );
   }
 
   @override
@@ -63,8 +92,10 @@ class _StreamCardState extends State<StreamCard> {
         Get.dialog(
           AlertDialog(
             backgroundColor: Colors.black87,
-            title: const Text("Remove Stream",
-                style: TextStyle(color: Colors.white)),
+            title: const Text(
+              "Remove Stream",
+              style: TextStyle(color: Colors.white),
+            ),
             actions: [
               TextButton(
                 onPressed: () => Get.back(),
@@ -87,14 +118,7 @@ class _StreamCardState extends State<StreamCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: ready
-                  ? VideoPlayer(controller)
-                  : Container(
-                      color: Colors.black38,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
+              child: BetterPlayer(controller: controller),
             ),
             Positioned(
               bottom: 10,

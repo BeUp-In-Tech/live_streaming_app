@@ -69,19 +69,8 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.snackbar(
-                            "Support",
-                            "This feature is not available right now. Please check back later.",
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.black87,
-                            colorText: Colors.white,
-                          );
-                        },
-                        child: SupportCards(
-                          isLandscape: isLandscape,
-                        ),
+                      child: SupportCards(
+                        isLandscape: isLandscape,
                       ),
                     ),
                   ],

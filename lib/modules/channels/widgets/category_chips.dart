@@ -19,7 +19,7 @@ class CategoryChips extends StatelessWidget {
                 bool selected = controller.selectedCategory.value == index;
 
                 return GestureDetector(
-                  onTap: () => controller.selectedCategory.value = index,
+                  onTap: () => controller.changeCategory(index),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: GlassContainer(

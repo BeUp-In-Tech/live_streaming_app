@@ -47,7 +47,9 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         Obx(() => Skeletonizer(
                               enabled: controller.loadingHeader.value,
-                              child: const HomeSearchBar(),
+                              child: HomeSearchBar(
+                                onChanged: controller.searchChannels,
+                              ),
                             )),
                         const SizedBox(height: 20),
                         Obx(() => Skeletonizer(
